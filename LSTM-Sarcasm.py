@@ -1,3 +1,5 @@
+#This project was part of the DeepLearning.AI TensorFlow Developer Specialization
+
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -6,7 +8,7 @@ import json
 import numpy as np
 
 #Open the dataset (is a json file)
-with open(r'C:\Users\rodri\OneDrive\Escritorio\Tec\Sarcasm text\Sarcasm_Headlines_Dataset_v2.json', 'r') as f:
+with open(r'Sarcasm_Headlines_Dataset_v2.json', 'r') as f:
     datastore = json.load(f)
 
 Sentences = []
@@ -43,6 +45,7 @@ training_padded = pad_sequences(training_sequences, maxlen = max_length, padding
 testing_sequences = tokenizer.texts_to_sequences(testing_sentences)
 testing_padded = pad_sequences(testing_sequences, maxlen = max_length, padding = padding_type, truncating = trunc_type)
 
+#We need to change the data into numpy data 
 training_padded = np.array(training_padded)
 training_labels = np.array(training_labels)
 testing_padded = np.array(testing_padded)
@@ -64,7 +67,7 @@ model.summary()
 num_epochs = 10
 history = model.fit(training_padded, training_labels, epochs = num_epochs, validation_data = (testing_padded, testing_labels), verbose = 2)
 
-
+#We try the model with one of the headlines of the dataset
 sentence = ["mom starting to fear son's web series closest thing she will have to grandchild"]
 sentence = tokenizer.texts_to_sequences(sentence)
 padded = pad_sequences(sentence, maxlen=max_length, padding=padding_type, truncating=trunc_type)
